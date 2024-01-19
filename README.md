@@ -20,4 +20,4 @@ PCCP 자격증 대비 학습 출첵 레포지토리
 
 | 날짜   | 레포 문제 번호                              | 난이도  | 문제이름       | 링크                                                                     |
 |------|---------------------------------------|------|------------|------------------------------------------------------------------------|
-| 1/17 | [Q1.java](/src/src/JAN/day18/Q1.java) | lv.3 | 에어컨(현대모비스) | [링크](https://school.programmers.co.kr/learn/courses/30/lessons/214289) |                                                                        |  
+| 1/18 | [Q1.java](/src/src/JAN/day18/Q1.java) | lv.3 | 에어컨(현대모비스) | [링크](https://school.programmers.co.kr/learn/courses/30/lessons/214289) |                                                                        |  
