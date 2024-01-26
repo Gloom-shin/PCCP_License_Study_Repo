@@ -45,6 +45,7 @@ class Q1 {
         redVisited[redStart[0]][redStart[1]] = true;
         blueVisited[blueStart[0]][blueStart[1]] = true;
         redDfs(maze, redVisited, blueVisited, redStart, redEnd, blueStart, blueEnd, 0, 0);
+        blueDfs(maze, redVisited, blueVisited, redStart, redEnd, blueStart, blueEnd, 0, 0);
 
 
         int answer = min;
