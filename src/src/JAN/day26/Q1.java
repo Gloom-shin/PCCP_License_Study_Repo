@@ -1,4 +1,4 @@
-package JAN.day23;
+package JAN.day26;
 
 
 // bfs를 번갈아가며, 벽이라 간주하고 진행해야되지않나 싶다.
@@ -6,7 +6,7 @@ package JAN.day23;
 
 import java.util.*;
 
-class Q1 {
+public class Q1 {
     static int[] dx = {1, 0, -1, 0};
     static int[] dy = {0, 1, 0, -1};
     static int redx = 0;

@@ -1,5 +1,8 @@
 package JAN.day23;
 
+
+import JAN.day26.Q1;
+
 public class Q1debug {
     public static void main(String[] args) {
         int[][] maze1 = {{1, 4}, {0, 0}, {2, 3}};
