@@ -21,6 +21,7 @@ PCCP 자격증 대비 학습 출첵 레포지토리
 
 | 날짜   | 레포 문제 번호                                | 난이도  | 문제이름                          | 링크                                                                 |
 |------|-----------------------------------------|------|-------------------------------|--------------------------------------------------------------------|
+| 2/01 | [Q1.java](/src/src/FEB/day01/Q1.java)   | lv.2 | 연탄의 크기                        | [링크](https://softeer.ai/app/assessment/index.html?xid=79597&xsrfToken=uW0CK5NVwSbdKdSKb3OiDvu7MmegT4Ug&testType=practice) |                                                                        |  
 | 1/29 | [Q1.java](/src/src/JAN/day29/Q1.java)   | lv.3 | 최고의 집합                        | [링크](https://school.programmers.co.kr/learn/courses/30/lessons/12938) |                                                                        |  
 | 1/26 | [Q1.java](/src/src/JAN/day26/Q1.java)   | lv.3 | [PCCP 기출문제] 4번 / 수레 움직이기 다시풀이 | [링크](https://school.programmers.co.kr/learn/courses/30/lessons/250134) |                                                                        |  
 | 1/23 | [Q1.java](/src/src/JAN/day23/Q1_1.java) | lv.3 | [PCCP 기출문제] 4번 / 수레 움직이기      | [링크](https://school.programmers.co.kr/learn/courses/30/lessons/250134) |                                                                        |  
