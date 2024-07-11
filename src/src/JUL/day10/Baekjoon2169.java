@@ -5,55 +5,53 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Baekjoon2169 {
-// 최적화 할수 있나 생각해봤는데, DFS돌리는 방법으로 완전탐색이 제일 좋은것 같다.
-// 1000* 1000 = 10^6 이며, --> 완전탐색 가능
-//그리고 각각의 숫자가 최대 100, 즉 최대값이 10^6*10^2 = 10^8  --> int범위로 처리가능
-    static int[] dx = {0, 1, 0};
-    static int[] dy = {1, 0, -1};
-    static int max = 0;
+
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        max = 0;
         int[][] map = new int[n][m];
+        int[][] dp = new int[n][m];
+        int[][] leftDp  = new int[n][m];
+        int[][] rightDp  = new int[n][m];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-
             for (int j = 0; j < m; j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
+                int temp = Integer.parseInt(st.nextToken());
+                if (i == 0) {
+                    dp[i][j] = temp + (j == 0 ? 0 : dp[i][j - 1]); // 위쪽 채우기
+                    leftDp[i][j] = dp[i][j];
+                    rightDp[i][j] = dp[i][j];
+                }
+                // 위쪽만 채워넣으면 된다.
+                map[i][j] = temp;
             }
         }
-        boolean[][] visited = new boolean[n][m];
-        visited[0][0] = true;
-        dfs(0, 0, n - 1, m - 1, map, visited, map[0][0]);
 
-        System.out.print(max);
-    }
-
-    private static void dfs(int x, int y, int endX, int endY, int[][] map, boolean[][] visited, int value) {
-        if (x == endX && y == endY) {
-            // 가치가 최대 값인지 확인
-            max = Math.max(max, value);
-            return;
-        }
-        // 이동
-        for (int i = 0; i < 3; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            if (nx < 0 || ny < 0 || nx > endX || ny > endY) {
-                continue; //범위밖
+        // dp를 한줄씩 내려가면서 3방향을 비교해 가장 높은 값을 비교하자
+        for(int i =1 ; i < n ; i++){
+            //위로 못움직이니 왼쪽과 오른쪽을 비교해서 쭈욱 만들자
+            //왼쪽
+            leftDp[i][0] = dp[i-1][0] + map[i][0]; //왼쪽 끝 추가
+            for(int j = 1; j < m; j++){
+                leftDp[i][j] = Math.max(dp[i-1][j], leftDp[i][j-1]) + map[i][j];
             }
-            if (visited[nx][ny]) continue; // 이미 방문
-            visited[nx][ny] = true;
-            value += map[nx][ny];
-            dfs(nx, ny, endX, endY, map, visited, value);
-            visited[nx][ny] = false;
-            value -= map[nx][ny];
-        }
 
+            // 오른쪽
+            rightDp[i][m-1] = dp[i-1][m-1] + map[i][m-1]; //오른쪽 끝 추가
+            for(int j = m-2; j >= 0; j--){
+                rightDp[i][j] = Math.max(dp[i-1][j], rightDp[i][j+1]) + map[i][j];
+            }
+
+            //이제 다시 순환하면서, 오른쪽dp와 왼쪽dp중에 최대값을 넣어주면된다.
+            for(int j = 0; j < m; j++){
+                dp[i][j] = Math.max(leftDp[i][j], rightDp[i][j]);
+            }
+
+        }
+        System.out.print(dp[n-1][m-1]);
     }
 }
