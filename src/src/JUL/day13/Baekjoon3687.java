@@ -30,37 +30,24 @@ public class Baekjoon3687 {
                 max.append("1");
                 maxIndex += 2;
             }
-            int minIndex = 0;
-            if (cnt > 7) {
-                while (cnt > 0) {
-                    minIndex = cnt % 7;
-                    if (minIndex == 1 || minIndex == 2) {
-                        min.append("1");
-                        cnt -= 2;
-                    }
-                    if (minIndex == 3 || minIndex == 4 || minIndex == 5) {
-                        min.append("2");
-                        cnt -= 5;
-                    }
-                    if (minIndex == 6) {
-                        if (min.length() == 0) min.append("6");
-                        else min.append("0");
-                        cnt -= 6;
-                    }
-                    if (minIndex == 7) {
-                        min.append("8");
-                        cnt -= 7;
-                    }
+            long[] dp = new long[101];
+            dp[1] = 10;
+            dp[2] = 1;
+            dp[3] = 7;
+            dp[4] = 4;
+            dp[5] = 2;
+            dp[6] = 6;
+            dp[7] = 8;
+            for (int j = 8; j <= 100; j++) {
+                dp[j] = Long.MAX_VALUE;
+                for (int k = 2; k <= 7; k++) {
+                    long add = dp[k];
+                    if(k == 6) add = 0;
+                    dp[j] = Math.min(dp[j], dp[j - k] * 10 + add);
                 }
-            } else {
-                if (cnt == 2) min.append("1");
-                if (cnt == 3) min.append("7");
-                if (cnt == 4) min.append("4");
-                if (cnt == 5) min.append("2");
-                if (cnt == 6) min.append("6");
-                if (cnt == 7) min.append("8");
             }
-            System.out.println(min.append(" ").append(max).toString());
+            min.append(dp[cnt]);
+            System.out.println(min.append(" ").append(max));
         }
 
     }
