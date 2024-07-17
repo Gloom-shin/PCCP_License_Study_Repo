@@ -4,69 +4,50 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Baekjoon1943 {
-    static class Coin implements Comparable<Coin> {
-        private int value;
-        private int cnt;
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        Coin(int v, int c) {
-            this.value = v;
-            this.cnt = c;
-        }
+        while (scanner.hasNext()) {
+            int N = scanner.nextInt();
+            int[] coinValue = new int[N];
+            int[] coinCnt = new int[N];
+            int totalValue = 0;
 
-        public void useCoin() {
-            this.cnt--;
-        }
-
-        public int getCnt() {
-            return this.cnt;
-        }
-
-        public int getValue() {
-            return this.value;
-        }
-
-        @Override
-        public int compareTo(Coin other) { // value로 내림 정렬
-            return other.getValue() - this.getValue();
-        }
-    }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int read = 0;
-        int type = 0;
-        StringTokenizer st;
-        ArrayList<Coin> list;
-        while (read < 3) {
-            read++;
-            type = Integer.parseInt(br.readLine());
-            list = new ArrayList<>();
-            for (int i = 0; i < type; i++) {
-                st = new StringTokenizer(br.readLine());
-                int v = Integer.parseInt(st.nextToken());
-                int c = Integer.parseInt(st.nextToken());
-                list.add(new Coin(v, c));
+            for (int i = 0; i < N; i++) {
+                coinValue[i] = scanner.nextInt();
+                coinCnt[i] = scanner.nextInt();
+                totalValue += (coinValue[i] * coinCnt[i]);
             }
-            Collections.sort(list);
-            int yunhwa = 0;
-            int junhee = 0;
-            for (Coin c : list) {
-                while (c.getCnt() > 0) {
-                    c.useCoin();
-                    if (yunhwa <= junhee) {
-                        yunhwa += c.getValue();
-                    } else {
-                        junhee += c.getValue();
+
+            if (totalValue % 2 != 0) {
+                System.out.println(0);
+                continue;
+            }
+
+            int halfValue = totalValue / 2;
+            boolean[] dp = new boolean[halfValue + 1];
+            dp[0] = true;
+
+            for (int i = 0; i < N; i++) {
+                int value = coinValue[i];
+                int cnt = coinCnt[i];
+
+                for (int j = halfValue; j >= 0; j--) {
+                    if (dp[j]) {
+                        for (int k = 1; k <= cnt && j + k * value <= halfValue; k++) {
+                            dp[j + k * value] = true;
+                        }
                     }
                 }
             }
-            if (yunhwa == junhee) System.out.println(1);
-            else System.out.println(0);
+
+            System.out.println(dp[halfValue] ? 1 : 0);
         }
 
+        scanner.close();
     }
-
 }
